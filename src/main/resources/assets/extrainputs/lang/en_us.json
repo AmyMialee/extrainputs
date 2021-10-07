@@ -1,0 +1,9 @@
+{
+  "category.extrainputs.inputs" : "Extra Inputs",
+  "key.extrainputs.input1" : "Keybind 1",
+  "key.extrainputs.input2" : "Keybind 2",
+  "key.extrainputs.input3" : "Keybind 3",
+  "key.extrainputs.input4" : "Keybind 4",
+  "key.extrainputs.input5" : "Keybind 5",
+  "key.extrainputs.input6" : "Keybind 6"
+}
