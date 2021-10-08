@@ -17,37 +17,37 @@ public class ExtraInputsClient implements ClientModInitializer {
     private static final KeyBinding keyBinding1 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key." + ExtraInputs.MODID + ".input1",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_UNKNOWN,
+            GLFW.GLFW_KEY_R,
             "category." + ExtraInputs.MODID + ".inputs"
     ));
     private static final KeyBinding keyBinding2 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key." + ExtraInputs.MODID + ".input2",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_UNKNOWN,
+            GLFW.GLFW_KEY_C,
             "category." + ExtraInputs.MODID + ".inputs"
     ));
     private static final KeyBinding keyBinding3 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key." + ExtraInputs.MODID + ".input3",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_UNKNOWN,
+            GLFW.GLFW_KEY_Q,
             "category." + ExtraInputs.MODID + ".inputs"
     ));
     private static final KeyBinding keyBinding4 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key." + ExtraInputs.MODID + ".input4",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_UNKNOWN,
+            GLFW.GLFW_KEY_Z,
             "category." + ExtraInputs.MODID + ".inputs"
     ));
     private static final KeyBinding keyBinding5 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key." + ExtraInputs.MODID + ".input5",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_UNKNOWN,
+            GLFW.GLFW_KEY_J,
             "category." + ExtraInputs.MODID + ".inputs"
     ));
     private static final KeyBinding keyBinding6 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key." + ExtraInputs.MODID + ".input6",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_UNKNOWN,
+            GLFW.GLFW_KEY_K,
             "category." + ExtraInputs.MODID + ".inputs"
     ));
 

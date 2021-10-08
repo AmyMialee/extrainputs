@@ -8,8 +8,8 @@
     "AmyMialee"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/double-jump-attribute",
-    "issues": "https://github.com/AmyMialee/doublejumpattribute/issues"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/extra-inputs",
+    "issues": "https://github.com/AmyMialee/extrainputs/issues"
   },
   "license": "LGPL-3.0",
   "icon": "assets/extrainputs/icon.png",
@@ -26,8 +26,18 @@
     "extrainputs.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.12.1",
-    "fabric": "*",
-    "minecraft": "1.17.1"
+    "fabric": "*"
+  },
+  "custom": {
+    "modupdater": {
+      "strategy": "curseforge",
+      "projectID": 534782,
+      "strict": false
+    },
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/P4dUsxv6An"
+      }
+    }
   }
 }
