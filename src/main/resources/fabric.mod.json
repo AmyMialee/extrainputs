@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "id": "extrainputs",
   "version": "${version}",
-  "name": "ExtraInputs",
+  "name": "Extra Inputs",
   "description": "Adds some more detectable inputs for mapmaking.",
   "authors": [
     "AmyMialee"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/extra-inputs",
-    "issues": "https://github.com/AmyMialee/extrainputs/issues"
+    "homepage": "https://github.com/AmyMialeeMods/extra-inputs",
+    "issues": "https://github.com/AmyMialeeMods/extra-inputs/issues"
   },
-  "license": "LGPL-3.0",
+  "license": "All-Rights-Reserved",
   "icon": "assets/extrainputs/icon.png",
   "environment": "*",
   "entrypoints": {
