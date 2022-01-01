@@ -1,9 +1,8 @@
 # Extra Inputs
 
-Extra Inputs is a small mod which adds 6 keys which can be used as inputs for datapacks.
-Also allows detection of usage of the Attack, Use and Pick Block actions.
+Extra Inputs is a small mod which adds 6 new keybinds for players to use, as well as universal attack, use and pick block detection.
 
-These inputs can be detected as scoreboard objectives.
+These inputs can be detected as scoreboard objectives and will not do anything on their own.
 
 <img src="https://github.com/AmyMialeeMods/extra-inputs/raw/main/assets/keybinds.png"><br><br>
 
