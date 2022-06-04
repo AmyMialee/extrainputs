@@ -15,40 +15,46 @@ import org.lwjgl.glfw.GLFW;
 @Environment(EnvType.CLIENT)
 public class ExtraInputsClient implements ClientModInitializer {
     private static final KeyBinding keyBinding1 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key." + ExtraInputs.MODID + ".input1",
+            "key." + ExtraInputs.MOD_ID + ".input1",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_R,
-            "category." + ExtraInputs.MODID + ".inputs"
+            "category." + ExtraInputs.MOD_ID + ".inputs"
     ));
     private static final KeyBinding keyBinding2 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key." + ExtraInputs.MODID + ".input2",
+            "key." + ExtraInputs.MOD_ID + ".input2",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_C,
-            "category." + ExtraInputs.MODID + ".inputs"
+            "category." + ExtraInputs.MOD_ID + ".inputs"
     ));
     private static final KeyBinding keyBinding3 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key." + ExtraInputs.MODID + ".input3",
+            "key." + ExtraInputs.MOD_ID + ".input3",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_Q,
-            "category." + ExtraInputs.MODID + ".inputs"
+            "category." + ExtraInputs.MOD_ID + ".inputs"
     ));
     private static final KeyBinding keyBinding4 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key." + ExtraInputs.MODID + ".input4",
+            "key." + ExtraInputs.MOD_ID + ".input4",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_Z,
-            "category." + ExtraInputs.MODID + ".inputs"
+            "category." + ExtraInputs.MOD_ID + ".inputs"
     ));
     private static final KeyBinding keyBinding5 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key." + ExtraInputs.MODID + ".input5",
+            "key." + ExtraInputs.MOD_ID + ".input5",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_J,
-            "category." + ExtraInputs.MODID + ".inputs"
+            "category." + ExtraInputs.MOD_ID + ".inputs"
     ));
     private static final KeyBinding keyBinding6 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key." + ExtraInputs.MODID + ".input6",
+            "key." + ExtraInputs.MOD_ID + ".input6",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_K,
-            "category." + ExtraInputs.MODID + ".inputs"
+            "category." + ExtraInputs.MOD_ID + ".inputs"
+    ));
+    private static final KeyBinding itemExtra = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key." + ExtraInputs.MOD_ID + ".item_extra",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_R,
+            "category." + ExtraInputs.MOD_ID + ".inputs"
     ));
 
     @Override
@@ -71,6 +77,9 @@ public class ExtraInputsClient implements ClientModInitializer {
             }
             if (keyBinding6.wasPressed()) {
                 ClientPlayNetworking.send(ExtraInputs.KEYBINDING6, PacketByteBufs.empty());
+            }
+            if (itemExtra.wasPressed()) {
+                ClientPlayNetworking.send(ExtraInputs.ITEM_EXTRA, PacketByteBufs.empty());
             }
         });
     }

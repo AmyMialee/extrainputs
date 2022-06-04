@@ -5,5 +5,7 @@
   "key.extrainputs.input3" : "Keybind 3",
   "key.extrainputs.input4" : "Keybind 4",
   "key.extrainputs.input5" : "Keybind 5",
-  "key.extrainputs.input6" : "Keybind 6"
+  "key.extrainputs.input6" : "Keybind 6",
+  "item.extrainputs.input_item" : "Input Test Item",
+  "key.extrainputs.item_extra" : "Use Item Special"
 }
