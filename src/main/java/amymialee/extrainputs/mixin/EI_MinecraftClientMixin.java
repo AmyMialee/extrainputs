@@ -86,14 +86,4 @@ public abstract class EI_MinecraftClientMixin {
             }
         }
     }
-
-    @Inject(method = "doItemUse", at = @At("HEAD"))
-    private void ExtraInputs$TrackUse(CallbackInfo ci) {
-        ClientPlayNetworking.send(ExtraInputs.KEYBINDING_USE, PacketByteBufs.empty());
-    }
-
-    @Inject(method = "doItemPick", at = @At("HEAD"))
-    private void ExtraInputs$TrackPick(CallbackInfo ci) {
-        ClientPlayNetworking.send(ExtraInputs.KEYBINDING_PICK, PacketByteBufs.empty());
-    }
 }
