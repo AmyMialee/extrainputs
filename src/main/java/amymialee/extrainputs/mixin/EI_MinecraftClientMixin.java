@@ -29,17 +29,15 @@ public abstract class EI_MinecraftClientMixin {
     @Inject(method = "handleInputEvents()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;handleBlockBreaking(Z)V", shift = At.Shift.BEFORE), cancellable = true)
     private void ExtraInputs$AttackableHeld(CallbackInfo ci) {
         MinecraftClient minecraft = MinecraftClient.getInstance();
-
         if (minecraft.player != null) {
             PlayerEntity player = minecraft.player;
             ItemStack stack = player.getMainHandStack();
-
             if (stack.getItem() instanceof UsableAttack usableAttack) {
                 if (!minecraft.options.attackKey.isPressed()) {
                     return;
                 }
                 ci.cancel();
-                if (usableAttack.attackableTicksHeld()) {
+                if (usableAttack.attackableTicksHeld(stack)) {
                     if (usableAttack.attackableUse(player.world, player, Hand.MAIN_HAND).getResult() == ActionResult.PASS) {
                         if (interactionManager != null) {
                             interactionManager.cancelBlockBreaking();
@@ -54,13 +52,11 @@ public abstract class EI_MinecraftClientMixin {
     @Inject(method = "handleInputEvents()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z", shift = At.Shift.BEFORE, ordinal = 0))
     private void ExtraInputs$AttackableUsing(CallbackInfo ci) {
         MinecraftClient minecraft = MinecraftClient.getInstance();
-
         if (minecraft.player != null) {
             PlayerEntity player = minecraft.player;
             ItemStack stack = player.getMainHandStack();
-
             if (stack.getItem() instanceof UsableAttack usableAttack) {
-                if (usableAttack.attackableTicksHeld() && player.isUsingItem()) {
+                if (usableAttack.attackableTicksHeld(stack) && player.isUsingItem()) {
                     while (minecraft.options.attackKey.wasPressed()) {
                         this.doAttack();
                     }
@@ -74,11 +70,9 @@ public abstract class EI_MinecraftClientMixin {
     private void ExtraInputs$DoAttackUse(CallbackInfoReturnable<Boolean> cir) {
         ClientPlayNetworking.send(ExtraInputs.ITEM_ATTACK, PacketByteBufs.empty());
         MinecraftClient minecraft = MinecraftClient.getInstance();
-
         if (minecraft.player != null) {
             PlayerEntity player = minecraft.player;
             ItemStack stack = player.getMainHandStack();
-
             if (stack.getItem() instanceof UsableAttack usableAttack) {
                 usableAttack.attackableUse(player.world, player, Hand.MAIN_HAND);
                 ClientPlayNetworking.send(ExtraInputs.ITEM_ATTACK, PacketByteBufs.empty());

@@ -33,14 +33,22 @@ public class InputTestItem extends Item implements UsableAttack, UsableExtra {
     }
 
     @Override
-    public boolean attackableTicksHeld() {
-        return false;
+    public boolean attackableTicksHeld(ItemStack stack) {
+        return isFast(stack);
     }
 
     @Override
     public void extraUse(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        shoot(world, user, itemStack, new ItemStack(Items.FIREWORK_ROCKET), 10, 0, 0.0F);
+        ItemStack stack = user.getStackInHand(hand);
+        setFast(stack, !isFast(stack));
+    }
+
+    public static boolean isFast(ItemStack stack) {
+        return stack.getOrCreateNbt().getBoolean("fast");
+    }
+
+    public static void setFast(ItemStack stack, boolean fast) {
+        stack.getOrCreateNbt().putBoolean("fast", fast);
     }
 
     @Override
@@ -63,7 +71,6 @@ public class InputTestItem extends Item implements UsableAttack, UsableExtra {
             PersistentProjectileEntity projectileEntity;
             projectileEntity = createArrow(world, shooter, crossbow, projectile);
             projectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
-
             if (shooter instanceof CrossbowUser crossbowUser) {
                 crossbowUser.shoot(crossbowUser.getTarget(), crossbow, projectileEntity, simulated);
             } else {
@@ -74,7 +81,6 @@ public class InputTestItem extends Item implements UsableAttack, UsableExtra {
                 vec3f.rotate(quaternion);
                 ((ProjectileEntity)projectileEntity).setVelocity(vec3f.getX(), vec3f.getY(), vec3f.getZ(), speed, divergence);
             }
-
             world.spawnEntity(projectileEntity);
             world.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1);
         }
@@ -86,14 +92,12 @@ public class InputTestItem extends Item implements UsableAttack, UsableExtra {
         if (entity instanceof PlayerEntity) {
             persistentProjectileEntity.setCritical(true);
         }
-
         persistentProjectileEntity.setSound(SoundEvents.ITEM_CROSSBOW_HIT);
         persistentProjectileEntity.setShotFromCrossbow(true);
         int i = EnchantmentHelper.getLevel(Enchantments.PIERCING, crossbow);
         if (i > 0) {
             persistentProjectileEntity.setPierceLevel((byte)i);
         }
-
         return persistentProjectileEntity;
     }
 }

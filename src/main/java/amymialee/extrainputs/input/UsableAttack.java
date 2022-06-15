@@ -8,8 +8,7 @@ import net.minecraft.world.World;
 
 public interface UsableAttack {
     TypedActionResult<ItemStack> attackableUse(World world, PlayerEntity user, Hand hand);
-
-    default boolean attackableTicksHeld() {
+    default boolean attackableTicksHeld(ItemStack stack) {
         return false;
     }
 }
