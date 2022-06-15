@@ -1,11 +1,13 @@
 package amymialee.extrainputs.mixin;
 
 import amymialee.extrainputs.ExtraInputs;
+import amymialee.extrainputs.input.ExtraCooldowns;
 import amymialee.extrainputs.input.UsableAttack;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -26,6 +28,8 @@ public abstract class EI_MinecraftClientMixin {
 
     @Shadow protected abstract boolean doAttack();
 
+    @Shadow @Nullable public ClientPlayerEntity player;
+
     @Inject(method = "handleInputEvents()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;handleBlockBreaking(Z)V", shift = At.Shift.BEFORE), cancellable = true)
     private void ExtraInputs$AttackableHeld(CallbackInfo ci) {
         MinecraftClient minecraft = MinecraftClient.getInstance();
@@ -37,13 +41,16 @@ public abstract class EI_MinecraftClientMixin {
                     return;
                 }
                 ci.cancel();
-                if (usableAttack.attackableTicksHeld(stack)) {
-                    if (usableAttack.attackableUse(player.world, player, Hand.MAIN_HAND).getResult() == ActionResult.PASS) {
-                        if (interactionManager != null) {
-                            interactionManager.cancelBlockBreaking();
+                if (!((ExtraCooldowns) player).getAttackCooldownManager().isCoolingDown(stack.getItem())) {
+                    if (usableAttack.attackableTicksHeld(stack)) {
+                        if (usableAttack.attackableUse(player.world, player, Hand.MAIN_HAND).getResult() == ActionResult.PASS) {
+                            if (interactionManager != null) {
+                                interactionManager.cancelBlockBreaking();
+                            }
+                            return;
                         }
+                        ClientPlayNetworking.send(ExtraInputs.ITEM_ATTACK, new PacketByteBuf(Unpooled.buffer()));
                     }
-                    ClientPlayNetworking.send(ExtraInputs.ITEM_ATTACK, new PacketByteBuf(Unpooled.buffer()));
                 }
             }
         }
@@ -56,9 +63,11 @@ public abstract class EI_MinecraftClientMixin {
             PlayerEntity player = minecraft.player;
             ItemStack stack = player.getMainHandStack();
             if (stack.getItem() instanceof UsableAttack usableAttack) {
-                if (usableAttack.attackableTicksHeld(stack) && player.isUsingItem()) {
-                    while (minecraft.options.attackKey.wasPressed()) {
-                        this.doAttack();
+                if (!((ExtraCooldowns) player).getAttackCooldownManager().isCoolingDown(stack.getItem())) {
+                    if (usableAttack.attackableTicksHeld(stack) && player.isUsingItem()) {
+                        while (minecraft.options.attackKey.wasPressed()) {
+                            this.doAttack();
+                        }
                     }
                 }
             }
@@ -74,9 +83,11 @@ public abstract class EI_MinecraftClientMixin {
             PlayerEntity player = minecraft.player;
             ItemStack stack = player.getMainHandStack();
             if (stack.getItem() instanceof UsableAttack usableAttack) {
-                usableAttack.attackableUse(player.world, player, Hand.MAIN_HAND);
-                ClientPlayNetworking.send(ExtraInputs.ITEM_ATTACK, PacketByteBufs.empty());
-                cir.setReturnValue(false);
+                if (!((ExtraCooldowns) player).getAttackCooldownManager().isCoolingDown(stack.getItem())) {
+                    usableAttack.attackableUse(player.world, player, Hand.MAIN_HAND);
+                    ClientPlayNetworking.send(ExtraInputs.ITEM_ATTACK, PacketByteBufs.empty());
+                    cir.setReturnValue(false);
+                }
             }
         }
     }

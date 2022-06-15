@@ -3,6 +3,7 @@ package amymialee.extrainputs.input;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.CrossbowUser;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -28,7 +29,10 @@ public class InputTestItem extends Item implements UsableAttack, UsableExtra {
     @Override
     public TypedActionResult<ItemStack> attackableUse(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        shoot(world, user, itemStack, new ItemStack(Items.SPECTRAL_ARROW), 2, 0, 0.0F);
+        if (!((ExtraCooldowns) user).getAttackCooldownManager().isCoolingDown(this)) {
+            shoot(world, user, itemStack, new ItemStack(Items.SPECTRAL_ARROW), 2, 0, 0.0F);
+            ((ExtraCooldowns) user).getAttackCooldownManager().set(this, 4);
+        }
         return TypedActionResult.consume(itemStack);
     }
 

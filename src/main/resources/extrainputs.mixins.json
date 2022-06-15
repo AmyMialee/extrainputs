@@ -4,7 +4,8 @@
   "package": "amymialee.extrainputs.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "EI_MinecraftClientMixin"
+    "EI_MinecraftClientMixin",
+    "EI_PlayerEntityMixin"
   ],
   "client": [
   ],

@@ -1,5 +1,6 @@
 package amymialee.extrainputs;
 
+import amymialee.extrainputs.input.ExtraCooldowns;
 import amymialee.extrainputs.input.InputTestItem;
 import amymialee.extrainputs.input.UsableAttack;
 import amymialee.extrainputs.input.UsableExtra;
@@ -26,13 +27,17 @@ public class ExtraInputs implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(ITEM_ATTACK, (server, playerEntity, handler, packetByteBuf, sender) -> server.execute(() -> {
             ItemStack stack = playerEntity.getMainHandStack();
             if (stack.getItem() instanceof UsableAttack attack) {
-                attack.attackableUse(playerEntity.world, playerEntity, Hand.MAIN_HAND);
+                if (!((ExtraCooldowns) playerEntity).getAttackCooldownManager().isCoolingDown(stack.getItem())) {
+                    attack.attackableUse(playerEntity.world, playerEntity, Hand.MAIN_HAND);
+                }
             }
         }));
         ServerPlayNetworking.registerGlobalReceiver(ITEM_EXTRA, (server, playerEntity, handler, packetByteBuf, sender) -> server.execute(() -> {
             ItemStack stack = playerEntity.getMainHandStack();
             if (stack.getItem() instanceof UsableExtra extra) {
-                extra.extraUse(playerEntity.world, playerEntity, Hand.MAIN_HAND);
+                if (!((ExtraCooldowns) playerEntity).getExtraCooldownManager().isCoolingDown(stack.getItem())) {
+                    extra.extraUse(playerEntity.world, playerEntity, Hand.MAIN_HAND);
+                }
             }
         }));
     }
