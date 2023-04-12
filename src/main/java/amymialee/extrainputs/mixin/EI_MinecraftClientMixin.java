@@ -25,10 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MinecraftClient.class)
 public abstract class EI_MinecraftClientMixin {
     @Shadow @Nullable public ClientPlayerInteractionManager interactionManager;
-
     @Shadow protected abstract boolean doAttack();
-
-    @Shadow @Nullable public ClientPlayerEntity player;
 
     @Inject(method = "handleInputEvents()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;handleBlockBreaking(Z)V", shift = At.Shift.BEFORE), cancellable = true)
     private void ExtraInputs$AttackableHeld(CallbackInfo ci) {
